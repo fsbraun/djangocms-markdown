@@ -12,20 +12,15 @@ class TestRenderMarkdown:
         result = render_markdown("Hello world")
         assert "<p>Hello world</p>" in result
 
-    def test_script_tag_escaped(self):
+    def test_script_tag_stripped(self):
         result = render_markdown("<script>alert(1)</script>")
-        # Raw script tag should not appear in the output
         assert "<script" not in result
-        # Script tag should be HTML-escaped instead
-        assert "&lt;script&gt;alert(1)&lt;/script&gt;" in result
 
-    def test_html_with_event_handler_escaped(self):
+    def test_html_with_event_handler_stripped(self):
         result = render_markdown('<img src="x" onerror="alert(1)">')
-        # Dangerous attributes and raw tag markup should not appear
-        assert 'onerror="alert(1)"' not in result
-        assert "<img" not in result
-        # Tag should be HTML-escaped instead
-        assert "&lt;img" in result
+        # nh3 allows <img> but strips dangerous attributes
+        assert "onerror" not in result
+        assert "<img" in result
 
     def test_bold(self):
         result = render_markdown("**bold text**")

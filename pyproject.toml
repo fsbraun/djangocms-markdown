@@ -37,6 +37,7 @@ dependencies = [
   "django>=4.2",
   "django-cms>=3.11",
   "markdown>=3.5",
+  "nh3",
   "pymdown-extensions>=10",
 ]
 optional-dependencies.test = [
