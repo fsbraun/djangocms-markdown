@@ -126,6 +126,10 @@ All settings are optional.
 - **`DJANGOCMS_MARKDOWN_PLUGIN_MODULE_NAME`** — module name the plugin appears
   under in the plugin picker. Default: `"Generic"`
 
+- **`DJANGOCMS_MARKDOWN_TABLE_CLASS`** — CSS class(es) added to every `<table>`
+  tag in rendered HTML. Useful for Bootstrap (`"table"`) or other CSS frameworks.
+  Set to `""` to disable. Default: `"table"`
+
 - **`DJANGOCMS_MARKDOWN_EASYMDE_CDN_BASE`** — CDN base URL for loading the
   EasyMDE editor. Set to `""` to serve from your own static files instead.
   Default: `"https://cdn.jsdelivr.net/npm/easymde@2.20.0/dist"`
