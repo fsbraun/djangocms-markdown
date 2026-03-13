@@ -4,7 +4,6 @@ requires = [ "setuptools>=64", "setuptools-scm>=8" ]
 
 [project]
 name = "djangocms-markdown"
-version = "0.1.0"
 description = "Markdown content plugin and field for django CMS"
 readme = "README.md"
 license = { text = "BSD-3-Clause" }
@@ -13,7 +12,7 @@ authors = [
 ]
 requires-python = ">=3.10"
 classifiers = [
-  "Development Status :: 3 - Alpha",
+  "Development Status :: 4 - Beta",
   "Framework :: Django",
   "Framework :: Django :: 4.2",
   "Framework :: Django :: 5.0",
@@ -23,6 +22,7 @@ classifiers = [
   "Framework :: Django CMS :: 3.11",
   "Framework :: Django CMS :: 4.1",
   "Framework :: Django CMS :: 5.0",
+  "Framework :: Django CMS :: 5.1",
   "Intended Audience :: Developers",
   "License :: OSI Approved :: BSD License",
   "Programming Language :: Python :: 3 :: Only",
@@ -33,6 +33,7 @@ classifiers = [
   "Programming Language :: Python :: 3.14",
   "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
 ]
+dynamic = [ "version" ]
 dependencies = [
   "django>=4.2",
   "django-cms>=3.11",
@@ -48,6 +49,7 @@ urls.Homepage = "https://github.com/fsbraun/djangocms-markdown"
 
 [tool.setuptools]
 packages.find.include = [ "djangocms_markdown*" ]
+dynamic.version = { attr = "djangocms_markdown.__version__" }
 
 [tool.pytest]
 ini_options.DJANGO_SETTINGS_MODULE = "tests.settings"

@@ -9,6 +9,7 @@ MARKDOWN_EXTENSIONS = getattr(
         "markdown.extensions.codehilite",
         "markdown.extensions.toc",
         "markdown.extensions.sane_lists",
+        "djangocms_markdown.extensions.delete",
     ],
 )
 
