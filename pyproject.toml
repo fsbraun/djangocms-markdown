@@ -1,0 +1,65 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [ "setuptools>=64", "setuptools-scm>=8" ]
+
+[project]
+name = "djangocms-markdown"
+version = "0.1.0"
+description = "Markdown content plugin and field for django CMS"
+readme = "README.md"
+license = { text = "BSD-3-Clause" }
+authors = [
+  { name = "Fabian Braun" },
+]
+requires-python = ">=3.10"
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Framework :: Django",
+  "Framework :: Django :: 4.2",
+  "Framework :: Django :: 5.0",
+  "Framework :: Django :: 5.1",
+  "Framework :: Django :: 5.2",
+  "Framework :: Django CMS",
+  "Framework :: Django CMS :: 3.11",
+  "Framework :: Django CMS :: 4.1",
+  "Framework :: Django CMS :: 5.0",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: BSD License",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+]
+dependencies = [
+  "django>=4.2",
+  "django-cms>=3.11",
+  "markdown>=3.5",
+  "nh3",
+  "pymdown-extensions>=10",
+]
+optional-dependencies.test = [
+  "pytest>=7",
+  "pytest-cov>=4",
+  "pytest-django>=4.5",
+]
+urls.Homepage = "https://github.com/fsbraun/djangocms-markdown"
+
+[tool.setuptools]
+packages.find.include = [ "djangocms_markdown*" ]
+
+[tool.pytest]
+ini_options.DJANGO_SETTINGS_MODULE = "tests.settings"
+ini_options.pythonpath = [ "." ]
+ini_options.python_files = [ "tests/test_*.py" ]
+ini_options.python_classes = [ "Test*" ]
+ini_options.python_functions = [ "test_*" ]
+ini_options.addopts = "--strict-markers -v"
+
+[tool.coverage]
+run.omit = [ "*/migrations/*" ]
+run.source = [ "djangocms_markdown" ]
+report.fail_under = 80
+report.show_missing = true
