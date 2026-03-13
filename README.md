@@ -86,62 +86,54 @@ In admin forms the field automatically uses the EasyMDE markdown editor.
 
 All settings are optional.
 
-### `DJANGOCMS_MARKDOWN_EXTENSIONS`
+- **`DJANGOCMS_MARKDOWN_EXTENSIONS`** — list of Python-Markdown extensions to
+  enable. Default:
 
-List of Python-Markdown extensions to enable. Default:
+  ```python
+  DJANGOCMS_MARKDOWN_EXTENSIONS = [
+      "markdown.extensions.extra",
+      "markdown.extensions.codehilite",
+      "markdown.extensions.toc",
+      "markdown.extensions.sane_lists",
+      "pymdownx.tasklist",
+      "pymdownx.magiclink",
+      "pymdownx.superfences",
+  ]
+  ```
 
-```python
-DJANGOCMS_MARKDOWN_EXTENSIONS = [
-    "markdown.extensions.extra",
-    "markdown.extensions.codehilite",
-    "markdown.extensions.toc",
-    "markdown.extensions.sane_lists",
-    "pymdownx.tasklist",
-    "pymdownx.magiclink",
-    "pymdownx.superfences",
-]
-```
+- **`DJANGOCMS_MARKDOWN_EXTENSION_CONFIGS`** — dict of extension-specific
+  configuration. Default:
 
-### `DJANGOCMS_MARKDOWN_EXTENSION_CONFIGS`
+  ```python
+  DJANGOCMS_MARKDOWN_EXTENSION_CONFIGS = {
+      "markdown.extensions.codehilite": {
+          "css_class": "highlight",
+          "guess_lang": False,
+      },
+      "pymdownx.tasklist": {
+          "custom_checkbox": True,
+      },
+  }
+  ```
 
-Dict of extension-specific configuration. Default:
+- **`DJANGOCMS_MARKDOWN_PLUGIN_NAME`** — display name of the CMS plugin.
+  Default: `"Markdown"`
 
-```python
-DJANGOCMS_MARKDOWN_EXTENSION_CONFIGS = {
-    "markdown.extensions.codehilite": {
-        "css_class": "highlight",
-        "guess_lang": False,
-    },
-    "pymdownx.tasklist": {
-        "custom_checkbox": True,
-    },
-}
-```
+- **`DJANGOCMS_MARKDOWN_PLUGIN_MODULE_NAME`** — module name the plugin appears
+  under in the plugin picker. Default: `"Generic"`
 
-### `DJANGOCMS_MARKDOWN_PLUGIN_NAME`
-
-Display name of the CMS plugin. Default: `"Markdown"`
-
-### `DJANGOCMS_MARKDOWN_PLUGIN_MODULE_NAME`
-
-Module name the plugin appears under in the plugin picker. Default: `"Generic"`
-
-### `DJANGOCMS_MARKDOWN_EASYMDE_CDN_BASE`
-
-CDN base URL for loading the EasyMDE editor. Set to `""` to serve from your
-own static files instead. Default:
-`"https://cdn.jsdelivr.net/npm/easymde@2.20.0/dist"`
-
-### HTML sanitization
+- **`DJANGOCMS_MARKDOWN_EASYMDE_CDN_BASE`** — CDN base URL for loading the
+  EasyMDE editor. Set to `""` to serve from your own static files instead.
+  Default: `"https://cdn.jsdelivr.net/npm/easymde@2.20.0/dist"`
 
 Rendered HTML is sanitized with [nh3](https://github.com/messense/nh3) using
 the same settings as
 [djangocms-text](https://github.com/django-cms/djangocms-text):
 
-- `TEXT_HTML_SANITIZE` — set to `False` to disable sanitization (default `True`)
-- `TEXT_ADDITIONAL_TAGS` — extra HTML tags to allow
-- `TEXT_ADDITIONAL_ATTRIBUTES` — extra attributes to allow per tag
-- `TEXT_ADDITIONAL_PROTOCOLS` — extra URL schemes to allow
+- **`TEXT_HTML_SANITIZE`** — set to `False` to disable sanitization (default `True`)
+- **`TEXT_ADDITIONAL_TAGS`** — extra HTML tags to allow
+- **`TEXT_ADDITIONAL_ATTRIBUTES`** — extra attributes to allow per tag
+- **`TEXT_ADDITIONAL_PROTOCOLS`** — extra URL schemes to allow
 
 ## Contributing
 
