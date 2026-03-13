@@ -1,17 +1,18 @@
 """Resolve dynamic object references in rendered HTML.
 
 References use the format ``ref:app_label.model_name:pk`` inside href
-attributes.  For example::
+or src attributes.  For example::
 
     <a href="ref:cms.page:42">My Page</a>
+    <img src="ref:myapp.image:7" alt="Photo">
 
 Resolution happens in three steps:
 1. Collect all references from the HTML.
 2. Batch-fetch referenced objects grouped by model (one query per model).
 3. Replace each ``ref:`` URL with the object's ``get_absolute_url()``.
 
-Objects that no longer exist or lack ``get_absolute_url`` are replaced
-with ``#``.
+Unresolved links are replaced with their plain text content.
+Unresolved images are removed entirely.
 """
 
 import re
@@ -19,7 +20,11 @@ from collections import defaultdict
 
 from django.apps import apps
 
-REF_RE = re.compile(r'href="ref:([a-zA-Z0-9_]+\.[a-zA-Z0-9_]+):(\d+)"')
+_REF_PATTERN = r"ref:([a-zA-Z0-9_]+\.[a-zA-Z0-9_]+):(\d+)"
+
+REF_RE = re.compile(r'(?:href|src)="' + _REF_PATTERN + r'"')
+LINK_RE = re.compile(r'<a\s[^>]*href="' + _REF_PATTERN + r'"[^>]*>(.*?)</a>')
+IMG_RE = re.compile(r'<img\s[^>]*src="' + _REF_PATTERN + r'"[^>]*/?\s*>')
 
 
 def collect_references(html):
@@ -40,6 +45,7 @@ def fetch_objects(refs):
     """Fetch objects for all references, one query per model.
 
     Returns a dict mapping ``"app_label.model_name:pk"`` to URL strings.
+    Missing objects or objects without ``get_absolute_url`` map to ``None``.
     """
     url_map = {}
     for (app_label, model_name), pks in refs.items():
@@ -47,7 +53,7 @@ def fetch_objects(refs):
             model = apps.get_model(app_label, model_name)
         except LookupError:
             for pk in pks:
-                url_map[f"{app_label}.{model_name}:{pk}"] = "#"
+                url_map[f"{app_label}.{model_name}:{pk}"] = None
             continue
 
         objects = model.objects.filter(pk__in=pks)
@@ -55,19 +61,23 @@ def fetch_objects(refs):
         for obj in objects:
             found_pks.add(obj.pk)
             try:
-                url = obj.get_absolute_url()
+                url = obj.get_absolute_url() or None
             except AttributeError:
-                url = "#"
+                url = None
             url_map[f"{app_label}.{model_name}:{obj.pk}"] = url
 
         for pk in pks - found_pks:
-            url_map[f"{app_label}.{model_name}:{pk}"] = "#"
+            url_map[f"{app_label}.{model_name}:{pk}"] = None
 
     return url_map
 
 
 def resolve_references(html):
     """Resolve all ``ref:`` URLs in *html* to absolute URLs.
+
+    Resolved references become normal links/images. Unresolved links
+    are replaced with their plain text content. Unresolved images are
+    removed entirely.
 
     Returns the HTML unchanged if it contains no references.
     """
@@ -80,9 +90,20 @@ def resolve_references(html):
 
     url_map = fetch_objects(refs)
 
-    def _replace(match):
+    def _replace_link(match):
         key = f"{match.group(1)}:{match.group(2)}"
-        url = url_map.get(key, "#")
-        return f'href="{url}"'
+        url = url_map.get(key)
+        if url is None:
+            return match.group(3)
+        return match.group(0).replace(f'href="ref:{key}"', f'href="{url}"')
 
-    return REF_RE.sub(_replace, html)
+    def _replace_img(match):
+        key = f"{match.group(1)}:{match.group(2)}"
+        url = url_map.get(key)
+        if url is None:
+            return ""
+        return match.group(0).replace(f'src="ref:{key}"', f'src="{url}"')
+
+    html = LINK_RE.sub(_replace_link, html)
+    html = IMG_RE.sub(_replace_img, html)
+    return html

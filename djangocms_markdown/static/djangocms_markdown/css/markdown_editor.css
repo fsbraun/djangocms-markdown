@@ -1,46 +1,91 @@
-/* Markdown editor styling for Django admin */
+/* Markdown editor styling for Django admin
+   Uses Django's CSS custom properties so light/dark mode works automatically. */
 .markdown-editor-wrapper .EasyMDEContainer {
     margin-bottom: 0;
 }
 
 .markdown-editor-wrapper .EasyMDEContainer .CodeMirror {
     border-radius: 0 0 4px 4px;
-    border-color: var(--border-color, #ccc);
+    border-color: var(--border-color);
+    background: var(--body-bg);
+    color: var(--body-fg);
     min-height: 300px;
-    font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Mono",
-        "Droid Sans Mono", "Source Code Pro", monospace;
+    font-family: var(--font-family-monospace);
     font-size: 14px;
     line-height: 1.6;
 }
 
+.markdown-editor-wrapper .EasyMDEContainer .CodeMirror-cursor {
+    border-left-color: var(--body-fg);
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .CodeMirror-selected,
+.markdown-editor-wrapper .EasyMDEContainer .CodeMirror-focused .CodeMirror-selected {
+    background: var(--selected-bg);
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .CodeMirror-gutters {
+    background: var(--body-bg);
+    border-right-color: var(--hairline-color);
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .CodeMirror-linenumber {
+    color: var(--body-quiet-color);
+}
+
 .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar {
-    border-color: var(--border-color, #ccc);
+    border: var(--border-color) 1px solid;
+    border-bottom: none;
     border-radius: 4px 4px 0 0;
-    background: var(--darkened-bg, #f8f9fa);
+    background: var(--body-bg);
 }
 
 .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar button {
-    color: var(--body-fg, #333);
+    color: var(--body-fg);
 }
 
 .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar button:hover,
 .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar button.active {
-    background: var(--primary, #79aec8);
-    color: #fff;
+    background: var(--dca-secondary);
+    color: var(--button-fg);
     border-color: transparent;
 }
 
+.markdown-editor-wrapper .EasyMDEContainer .editor-toolbar i.separator {
+    border-left-color: var(--border-color);
+    border-right-color: var(--hairline-color);
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-toolbar.disabled-for-preview button:not(.no-disable) {
+    color: var(--body-quiet-color);
+}
+
+/* Status bar */
+.markdown-editor-wrapper .EasyMDEContainer .editor-statusbar {
+    color: var(--body-quiet-color);
+    border-top-color: var(--border-color);
+}
+
+/* Preview pane */
 .markdown-editor-wrapper .EasyMDEContainer .editor-preview,
 .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side {
     padding: 16px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: var(--font-family-primary);
     font-size: 14px;
     line-height: 1.6;
+    background: var(--body-bg);
+    color: var(--body-fg);
+    border-color: var(--border-color);
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview a,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side a {
+    color: var(--link-fg);
 }
 
 .markdown-editor-wrapper .EasyMDEContainer .editor-preview pre,
 .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side pre {
-    background: #f6f8fa;
+    background: var(--darkened-bg);
     padding: 12px;
     border-radius: 4px;
     overflow-x: auto;
@@ -48,7 +93,7 @@
 
 .markdown-editor-wrapper .EasyMDEContainer .editor-preview code,
 .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side code {
-    background: #f0f0f0;
+    background: var(--darkened-bg);
     padding: 2px 4px;
     border-radius: 3px;
     font-size: 0.9em;
@@ -62,10 +107,10 @@
 
 .markdown-editor-wrapper .EasyMDEContainer .editor-preview blockquote,
 .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side blockquote {
-    border-left: 4px solid var(--primary, #79aec8);
+    border-left: 4px solid var(--primary);
     padding-left: 16px;
     margin-left: 0;
-    color: #666;
+    color: var(--body-quiet-color);
 }
 
 .markdown-editor-wrapper .EasyMDEContainer .editor-preview table,
@@ -79,18 +124,24 @@
 .markdown-editor-wrapper .EasyMDEContainer .editor-preview td,
 .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side th,
 .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side td {
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     padding: 8px 12px;
     text-align: left;
 }
 
 .markdown-editor-wrapper .EasyMDEContainer .editor-preview th,
 .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side th {
-    background: #f6f8fa;
+    background: var(--darkened-bg);
     font-weight: 600;
 }
 
-/* Light mode — markdown syntax highlighting */
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview hr,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side hr {
+    border-color: var(--border-color);
+}
+
+/* Markdown syntax highlighting — these are editor-specific colors that
+   don't map to Django admin variables, so they keep explicit light/dark values. */
 .markdown-editor-wrapper .EasyMDEContainer .cm-header {
     color: #0550ae;
 }
@@ -137,64 +188,8 @@
     color: #6e7781;
 }
 
-/* Dark mode — activated by data-theme="dark" on <html>, or
-   data-theme="auto" when the OS prefers dark */
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror {
-    background: #1e1e1e;
-    color: #d4d4d4;
-    border-color: #444;
-}
-
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror-cursor {
-    border-left-color: #d4d4d4;
-}
-
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror-selected,
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror-focused .CodeMirror-selected {
-    background: #264f78;
-}
-
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror-gutters {
-    background: #1e1e1e;
-    border-right-color: #333;
-}
-
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror-linenumber {
-    color: #858585;
-}
-
-/* Toolbar */
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar {
-    background: #2d2d2d;
-    border-color: #444;
-}
-
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar button {
-    color: #ccc;
-}
-
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar button:hover,
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar button.active {
-    background: #0d6efd;
-    color: #fff;
-}
-
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar i.separator {
-    border-left-color: #555;
-    border-right-color: #333;
-}
-
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar.disabled-for-preview button:not(.no-disable) {
-    color: #666;
-}
-
-/* Status bar */
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-statusbar {
-    color: #999;
-    border-top-color: #444;
-}
-
-/* Markdown syntax highlighting */
+/* Dark mode — only syntax highlighting colors need explicit overrides;
+   everything else uses Django's CSS variables which switch automatically. */
 html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .cm-header {
     color: #569cd6;
 }
@@ -241,118 +236,8 @@ html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .cm-formattin
     color: #808080;
 }
 
-/* Preview pane */
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview,
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side {
-    background: #1e1e1e;
-    color: #d4d4d4;
-    border-color: #444;
-}
-
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview a,
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side a {
-    color: #3794ff;
-}
-
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview pre,
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side pre {
-    background: #2d2d2d;
-}
-
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview code,
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side code {
-    background: #2d2d2d;
-    color: #ce9178;
-}
-
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview pre code,
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side pre code {
-    color: #d4d4d4;
-}
-
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview blockquote,
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side blockquote {
-    color: #999;
-    border-left-color: #555;
-}
-
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview th,
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview td,
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side th,
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side td {
-    border-color: #444;
-}
-
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview th,
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side th {
-    background: #2d2d2d;
-}
-
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview hr,
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side hr {
-    border-color: #444;
-}
-
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview img,
-html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side img {
-    opacity: 0.9;
-}
-
-/* Auto mode — follow OS preference */
+/* Auto mode — follow OS preference (syntax highlighting only) */
 @media (prefers-color-scheme: dark) {
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror {
-        background: #1e1e1e;
-        color: #d4d4d4;
-        border-color: #444;
-    }
-
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror-cursor {
-        border-left-color: #d4d4d4;
-    }
-
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror-selected,
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror-focused .CodeMirror-selected {
-        background: #264f78;
-    }
-
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror-gutters {
-        background: #1e1e1e;
-        border-right-color: #333;
-    }
-
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror-linenumber {
-        color: #858585;
-    }
-
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar {
-        background: #2d2d2d;
-        border-color: #444;
-    }
-
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar button {
-        color: #ccc;
-    }
-
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar button:hover,
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar button.active {
-        background: #0d6efd;
-        color: #fff;
-    }
-
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar i.separator {
-        border-left-color: #555;
-        border-right-color: #333;
-    }
-
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar.disabled-for-preview button:not(.no-disable) {
-        color: #666;
-    }
-
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-statusbar {
-        color: #999;
-        border-top-color: #444;
-    }
-
     html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .cm-header {
         color: #569cd6;
     }
@@ -398,65 +283,34 @@ html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-previ
     html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .cm-formatting {
         color: #808080;
     }
-
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview,
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side {
-        background: #1e1e1e;
-        color: #d4d4d4;
-        border-color: #444;
-    }
-
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview a,
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side a {
-        color: #3794ff;
-    }
-
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview pre,
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side pre {
-        background: #2d2d2d;
-    }
-
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview code,
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side code {
-        background: #2d2d2d;
-        color: #ce9178;
-    }
-
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview pre code,
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side pre code {
-        color: #d4d4d4;
-    }
-
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview blockquote,
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side blockquote {
-        color: #999;
-        border-left-color: #555;
-    }
-
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview th,
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview td,
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side th,
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side td {
-        border-color: #444;
-    }
-
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview th,
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side th {
-        background: #2d2d2d;
-    }
-
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview hr,
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side hr {
-        border-color: #444;
-    }
-
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview img,
-    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side img {
-        opacity: 0.9;
-    }
 }
 
 /* CMS modal compatibility */
 .cms-modal-markup .markdown-editor-wrapper .EasyMDEContainer .CodeMirror {
     min-height: 250px;
+}
+
+/* ── Reference picker popup ─────────────────────────────────── */
+.md-ref-popup {
+    position: absolute;
+    z-index: 100;
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.md-ref-popup,
+.md-ref-popup .select2-container,
+.md-ref-popup .select2-selection,
+.md-ref-popup .select2-search__field,
+.md-ref-popup .select2-results {
+    font-family: var(--font-family-primary);
+    background: var(--body-bg) !important;  /* Override Select2's inline styles */
+    color: var(--body-fg) !important;
+}
+
+.md-ref-popup .select2-container {
+    min-width: 350px;
 }
