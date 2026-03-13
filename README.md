@@ -86,15 +86,25 @@ In admin forms the field automatically uses the EasyMDE markdown editor.
 
 All settings are optional.
 
-| Setting | Default | Description |
-|---|---|---|
-| `DJANGOCMS_MARKDOWN_EXTENSIONS` | `["markdown.extensions.extra", "markdown.extensions.codehilite", "markdown.extensions.toc", "markdown.extensions.sane_lists", "pymdownx.tasklist", "pymdownx.magiclink", "pymdownx.superfences"]` | List of Python-Markdown extensions to enable |
-| `DJANGOCMS_MARKDOWN_EXTENSION_CONFIGS` | See below | Dict of extension configs |
-| `DJANGOCMS_MARKDOWN_PLUGIN_NAME` | `"Markdown"` | Display name of the CMS plugin |
-| `DJANGOCMS_MARKDOWN_PLUGIN_MODULE_NAME` | `"Generic"` | Module name the plugin appears under |
-| `DJANGOCMS_MARKDOWN_EASYMDE_CDN_BASE` | `"https://cdn.jsdelivr.net/npm/easymde@2.20.0/dist"` | CDN base URL for EasyMDE (set to `""` to use local static files) |
+### `DJANGOCMS_MARKDOWN_EXTENSIONS`
 
-Default extension configs:
+List of Python-Markdown extensions to enable. Default:
+
+```python
+DJANGOCMS_MARKDOWN_EXTENSIONS = [
+    "markdown.extensions.extra",
+    "markdown.extensions.codehilite",
+    "markdown.extensions.toc",
+    "markdown.extensions.sane_lists",
+    "pymdownx.tasklist",
+    "pymdownx.magiclink",
+    "pymdownx.superfences",
+]
+```
+
+### `DJANGOCMS_MARKDOWN_EXTENSION_CONFIGS`
+
+Dict of extension-specific configuration. Default:
 
 ```python
 DJANGOCMS_MARKDOWN_EXTENSION_CONFIGS = {
@@ -107,6 +117,31 @@ DJANGOCMS_MARKDOWN_EXTENSION_CONFIGS = {
     },
 }
 ```
+
+### `DJANGOCMS_MARKDOWN_PLUGIN_NAME`
+
+Display name of the CMS plugin. Default: `"Markdown"`
+
+### `DJANGOCMS_MARKDOWN_PLUGIN_MODULE_NAME`
+
+Module name the plugin appears under in the plugin picker. Default: `"Generic"`
+
+### `DJANGOCMS_MARKDOWN_EASYMDE_CDN_BASE`
+
+CDN base URL for loading the EasyMDE editor. Set to `""` to serve from your
+own static files instead. Default:
+`"https://cdn.jsdelivr.net/npm/easymde@2.20.0/dist"`
+
+### HTML sanitization
+
+Rendered HTML is sanitized with [nh3](https://github.com/messense/nh3) using
+the same settings as
+[djangocms-text](https://github.com/django-cms/djangocms-text):
+
+- `TEXT_HTML_SANITIZE` — set to `False` to disable sanitization (default `True`)
+- `TEXT_ADDITIONAL_TAGS` — extra HTML tags to allow
+- `TEXT_ADDITIONAL_ATTRIBUTES` — extra attributes to allow per tag
+- `TEXT_ADDITIONAL_PROTOCOLS` — extra URL schemes to allow
 
 ## Contributing
 
