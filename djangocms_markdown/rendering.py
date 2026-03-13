@@ -23,7 +23,7 @@ def _add_table_class(html, css_class):
         # Insert class before the closing >
         return tag[:-1] + f' class="{css_class}">'
 
-    return re.sub(r"<table\b[^>]*>", _replace, html)
+    return re.sub(r"<table\b[^>]*>", _replace, html, flags=re.IGNORECASE)
 
 
 def render_markdown(text):
