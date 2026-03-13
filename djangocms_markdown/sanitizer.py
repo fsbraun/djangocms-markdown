@@ -56,6 +56,9 @@ def get_sanitizer_kwargs():
             attrs = set(attrs)
         attributes[tag] = attributes.get(tag, set()) | attrs
 
+    # Allow ref: scheme for dynamic object references
+    url_schemes.add("ref")
+
     # Apply TEXT_ADDITIONAL_PROTOCOLS from djangocms-text settings
     additional_protocols = _get_text_setting("TEXT_ADDITIONAL_PROTOCOLS", ())
     url_schemes |= set(additional_protocols)

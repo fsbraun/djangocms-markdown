@@ -1,6 +1,7 @@
 from django import template
 from django.utils.safestring import mark_safe
 
+from ..references import resolve_references
 from ..rendering import render_markdown
 
 register = template.Library()
@@ -17,4 +18,4 @@ def render_markdown_filter(value):
     """
     if not value:
         return ""
-    return mark_safe(render_markdown(str(value)))
+    return mark_safe(resolve_references(render_markdown(str(value))))
