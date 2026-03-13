@@ -277,8 +277,11 @@
             });
         }
 
-        // Start in fullscreen mode
-        easyMDE.toggleFullScreen();
+        // Start in fullscreen mode only for the MDText plugin admin
+        var body = document.body;
+        if (body.classList.contains("model-mdtext") && body.classList.contains("app-djangocms_markdown")) {
+            easyMDE.toggleFullScreen();
+        }
 
         // Store reference for cleanup
         textarea._easyMDE = easyMDE;
