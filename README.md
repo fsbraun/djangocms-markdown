@@ -3,7 +3,7 @@
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/djangocms-markdown)](https://pypi.org/project/djangocms-markdown/)
 [![PyPI - Django Version](https://img.shields.io/pypi/djversions/djangocms-markdown)](https://pypi.org/project/djangocms-markdown/)
 [![PyPI - Django CMS Version](https://img.shields.io/pypi/frameworkversions/djangocms/djangocms-markdown)](https://pypi.org/project/djangocms-markdown/)
-[![Coverage Status](https://coveralls.io/repos/github/fsbraun/djangocms-markdown/badge.svg?branch=main)](https://coveralls.io/github/fsbraun/djangocms-markdown?branch=main)
+[![codecov](https://codecov.io/gh/fsbraun/djangocms-markdown/graph/badge.svg?token=LEwTZILg2S)](https://codecov.io/gh/fsbraun/djangocms-markdown)
 
 A markdown content plugin and model field for
 [django CMS](https://www.django-cms.org/). Write content in Markdown using an
