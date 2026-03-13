@@ -3,7 +3,6 @@ import djangocms_markdown.fields
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = []

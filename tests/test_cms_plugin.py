@@ -1,5 +1,4 @@
 import pytest
-from cms.api import add_plugin, create_page
 from cms.models import Placeholder
 from django.template import Context
 

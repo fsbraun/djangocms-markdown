@@ -1,5 +1,3 @@
-import pytest
-
 from djangocms_markdown.rendering import render_markdown
 
 

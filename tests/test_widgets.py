@@ -1,5 +1,3 @@
-from django.test import override_settings
-
 from djangocms_markdown.widgets import MarkdownEditorWidget
 
 

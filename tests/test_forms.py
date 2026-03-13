@@ -1,5 +1,3 @@
-import pytest
-
 from djangocms_markdown.forms import MDTextForm
 from djangocms_markdown.widgets import MarkdownEditorWidget
 
