@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from djangocms_markdown.rendering import render_markdown
 
 
@@ -84,9 +86,22 @@ class TestRenderMarkdown:
     def test_table(self):
         md = "| A | B |\n|---|---|\n| 1 | 2 |"
         result = render_markdown(md)
-        assert "<table>" in result
+        assert '<table class="table">' in result
         assert "<th>" in result
         assert "<td>" in result
+
+    @patch("djangocms_markdown.rendering.TABLE_CLASS", "table table-striped")
+    def test_table_custom_class(self):
+        md = "| A | B |\n|---|---|\n| 1 | 2 |"
+        result = render_markdown(md)
+        assert '<table class="table table-striped">' in result
+
+    @patch("djangocms_markdown.rendering.TABLE_CLASS", "")
+    def test_table_no_class(self):
+        md = "| A | B |\n|---|---|\n| 1 | 2 |"
+        result = render_markdown(md)
+        assert "<table>" in result
+        assert "class=" not in result.split("</table>")[0].split("<table")[1]
 
     def test_strikethrough(self):
         result = render_markdown("~~deleted~~")

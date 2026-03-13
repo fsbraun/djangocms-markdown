@@ -33,6 +33,9 @@ MARKDOWN_PLUGIN_MODULE_NAME = getattr(
     settings, "DJANGOCMS_MARKDOWN_PLUGIN_MODULE_NAME", "Generic"
 )
 
+# CSS class(es) added to <table> tags in rendered HTML (empty string to disable)
+TABLE_CLASS = getattr(settings, "DJANGOCMS_MARKDOWN_TABLE_CLASS", "table")
+
 # EasyMDE CDN base URL (set to empty string to use local static files instead)
 EASYMDE_CDN_BASE = getattr(
     settings,
