@@ -2,7 +2,7 @@
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/djangocms-markdown)](https://pypi.org/project/djangocms-markdown/)
 [![PyPI - Django Version](https://img.shields.io/pypi/djversions/djangocms-markdown)](https://pypi.org/project/djangocms-markdown/)
-[![PyPI - Django CMS Version](https://img.shields.io/pypi/frameworkversions/djangocms/djangocms-markdown)](https://pypi.org/project/djangocms-markdown/)
+[![PyPI - Django CMS Version](https://img.shields.io/pypi/frameworkversions/django-cms/djangocms-markdown)](https://pypi.org/project/djangocms-markdown/)
 [![codecov](https://codecov.io/gh/fsbraun/djangocms-markdown/graph/badge.svg?token=LEwTZILg2S)](https://codecov.io/gh/fsbraun/djangocms-markdown)
 
 A markdown content plugin and model field for
