@@ -1,0 +1,113 @@
+/* Markdown editor styling for Django admin */
+.markdown-editor-wrapper .EasyMDEContainer {
+    margin-bottom: 0;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .CodeMirror {
+    border-radius: 0 0 4px 4px;
+    border-color: var(--border-color, #ccc);
+    min-height: 300px;
+    font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Mono",
+        "Droid Sans Mono", "Source Code Pro", monospace;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-toolbar {
+    border-color: var(--border-color, #ccc);
+    border-radius: 4px 4px 0 0;
+    background: var(--darkened-bg, #f8f9fa);
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-toolbar button {
+    color: var(--body-fg, #333);
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-toolbar button:hover,
+.markdown-editor-wrapper .EasyMDEContainer .editor-toolbar button.active {
+    background: var(--primary, #79aec8);
+    color: #fff;
+    border-color: transparent;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side {
+    padding: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview pre,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side pre {
+    background: #f6f8fa;
+    padding: 12px;
+    border-radius: 4px;
+    overflow-x: auto;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview code,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side code {
+    background: #f0f0f0;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview pre code,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side pre code {
+    background: transparent;
+    padding: 0;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview blockquote,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side blockquote {
+    border-left: 4px solid var(--primary, #79aec8);
+    padding-left: 16px;
+    margin-left: 0;
+    color: #666;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview table,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 16px 0;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview th,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview td,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side th,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side td {
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    text-align: left;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview th,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side th {
+    background: #f6f8fa;
+    font-weight: 600;
+}
+
+/* Django admin dark mode support */
+@media (prefers-color-scheme: dark) {
+    body.dark .markdown-editor-wrapper .EasyMDEContainer .CodeMirror {
+        background: #1e1e1e;
+        color: #d4d4d4;
+    }
+
+    body.dark .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar {
+        background: #2d2d2d;
+    }
+
+    body.dark .markdown-editor-wrapper .EasyMDEContainer .editor-preview pre,
+    body.dark .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side pre {
+        background: #2d2d2d;
+    }
+}
+
+/* CMS modal compatibility */
+.cms-modal-markup .markdown-editor-wrapper .EasyMDEContainer .CodeMirror {
+    min-height: 250px;
+}
