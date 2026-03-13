@@ -19,7 +19,7 @@ integrated editor and have it rendered as HTML on your site.
 - **Template filter** — `{{ value|render_markdown }}` for rendering markdown
   anywhere in templates
 - **Configurable rendering** — uses Python-Markdown with sensible defaults
-  (tables, fenced code, syntax highlighting, task lists, TOC, and more)
+  (tables, fenced code, syntax highlighting, TOC, and more)
 
 ## Installation
 
@@ -95,9 +95,6 @@ All settings are optional.
       "markdown.extensions.codehilite",
       "markdown.extensions.toc",
       "markdown.extensions.sane_lists",
-      "pymdownx.tasklist",
-      "pymdownx.magiclink",
-      "pymdownx.superfences",
   ]
   ```
 
@@ -109,9 +106,6 @@ All settings are optional.
       "markdown.extensions.codehilite": {
           "css_class": "highlight",
           "guess_lang": False,
-      },
-      "pymdownx.tasklist": {
-          "custom_checkbox": True,
       },
   }
   ```

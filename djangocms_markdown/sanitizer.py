@@ -28,14 +28,14 @@ def get_sanitizer_kwargs():
         "*": {"style", "class", "role", "id"},
         "a": {"href", "target", "rel"},
         "img": {"src", "alt", "title", "width", "height", "loading"},
-        "input": {"type", "checked", "disabled"},  # task list checkboxes
+        "input": {"type", "checked", "disabled"},  # for task list checkboxes (opt-in)
         "td": {"align"},
         "th": {"align"},
         "code": {"class"},  # codehilite language classes
         "span": {"class"},  # codehilite spans
         "pre": {"class"},
         "div": {"class"},  # codehilite wrapper divs
-        "label": {"class"},  # task list labels
+        "label": {"class"},  # for task list labels (opt-in)
     }
 
     markdown_additional_tags = {"input", "label", "span", "div", "details", "summary"}

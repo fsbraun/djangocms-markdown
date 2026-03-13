@@ -9,9 +9,7 @@ MARKDOWN_EXTENSIONS = getattr(
         "markdown.extensions.codehilite",
         "markdown.extensions.toc",
         "markdown.extensions.sane_lists",
-        "pymdownx.tasklist",
-        "pymdownx.magiclink",
-        "pymdownx.superfences",
+        "djangocms_markdown.extensions.delete",
     ],
 )
 
@@ -23,9 +21,6 @@ MARKDOWN_EXTENSION_CONFIGS = getattr(
         "markdown.extensions.codehilite": {
             "css_class": "highlight",
             "guess_lang": False,
-        },
-        "pymdownx.tasklist": {
-            "custom_checkbox": True,
         },
     },
 )

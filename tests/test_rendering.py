@@ -88,12 +88,34 @@ class TestRenderMarkdown:
         assert "<th>" in result
         assert "<td>" in result
 
-    def test_task_list(self):
-        md = "- [x] done\n- [ ] todo"
+    def test_strikethrough(self):
+        result = render_markdown("~~deleted~~")
+        assert "<del>deleted</del>" in result
+
+    def test_strikethrough_in_sentence(self):
+        result = render_markdown("This is ~~not~~ important")
+        assert "<del>not</del>" in result
+
+    def test_single_tilde_not_struck(self):
+        result = render_markdown("~not deleted~")
+        assert "<del>" not in result
+
+    def test_footnote(self):
+        md = "Text with a footnote[^1].\n\n[^1]: Footnote content."
         result = render_markdown(md)
-        assert "task-list" in result
-        assert "done" in result
-        assert "todo" in result
+        assert "footnote" in result.lower()
+
+    def test_definition_list(self):
+        md = "Term\n:   Definition"
+        result = render_markdown(md)
+        assert "<dl>" in result
+        assert "<dt>" in result
+        assert "<dd>" in result
+
+    def test_abbreviation(self):
+        md = "The HTML specification.\n\n*[HTML]: Hyper Text Markup Language"
+        result = render_markdown(md)
+        assert "<abbr" in result
 
     def test_multiline(self):
         md = "# Title\n\nParagraph one.\n\nParagraph two."

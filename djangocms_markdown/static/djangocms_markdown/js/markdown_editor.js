@@ -68,6 +68,9 @@
             textarea.value = easyMDE.value();
         });
 
+        // Start in fullscreen mode
+        easyMDE.toggleFullScreen();
+
         // Store reference for cleanup
         textarea._easyMDE = easyMDE;
     }
