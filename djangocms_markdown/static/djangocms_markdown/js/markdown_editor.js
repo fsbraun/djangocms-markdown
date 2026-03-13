@@ -103,24 +103,29 @@
     }
 
     function positionPopup(popup, cm, linkInfo) {
-        // Get pixel coordinates of the URL start in the editor
-        var coords = cm.charCoords({ line: linkInfo.line, ch: linkInfo.urlStart }, "local");
-        var cmWrapper = cm.getWrapperElement();
-        var cmRect = cmWrapper.getBoundingClientRect();
-        var scrollInfo = cm.getScrollInfo();
+        // Use page-relative coordinates and offset by the container's position
+        var coords = cm.charCoords({ line: linkInfo.line, ch: linkInfo.urlStart }, "page");
+        var container = cm.getWrapperElement().closest(".EasyMDEContainer");
+        var containerRect = container.getBoundingClientRect();
 
-        var left = coords.left - scrollInfo.left;
-        var spaceAbove = coords.top - scrollInfo.top;
-        var spaceBelow = cmRect.height - (coords.bottom - scrollInfo.top);
+        var left = coords.left - containerRect.left;
+        var spaceAbove = coords.top - containerRect.top;
+
+        // Prevent overflow on the right: clamp so popup stays within container
+        var popupWidth = popup.offsetWidth;
+        var maxLeft = containerRect.width - popupWidth;
+        if (left > maxLeft) {
+            left = Math.max(0, maxLeft);
+        }
 
         popup.style.left = left + "px";
 
         // Prefer above the line; fall back to below if not enough space
         if (spaceAbove > 60) {
-            popup.style.bottom = (cmRect.height - (coords.top - scrollInfo.top)) + "px";
+            popup.style.bottom = (containerRect.bottom - coords.top) + "px";
             popup.style.top = "auto";
         } else {
-            popup.style.top = (coords.bottom - scrollInfo.top) + "px";
+            popup.style.top = (coords.bottom - containerRect.top) + "px";
             popup.style.bottom = "auto";
         }
     }
@@ -201,11 +206,11 @@
             }
 
             var parts = createRefPopup();
-            var cmWrapper = cm.getWrapperElement();
+            var easyMDEContainer = cm.getWrapperElement().closest(".EasyMDEContainer");
 
-            // Append inside CM wrapper so it scrolls/clips with the editor
-            cmWrapper.appendChild(parts.popup);
-            positionPopup(parts.popup, cm, linkInfo);
+            // Append to EasyMDEContainer (common parent of editor and preview)
+            // so the popup is not clipped by the side-by-side preview pane.
+            easyMDEContainer.appendChild(parts.popup);
 
             // Prevent interactions from stealing CM focus
             parts.popup.addEventListener("mousedown", function (e) {
@@ -215,6 +220,9 @@
 
             var placeholder = textarea.getAttribute("data-ref-placeholder") || "";
             var $select = initSelect2($, parts.select, autocompleteUrl, $(parts.popup), placeholder);
+
+            // Position after select2 init so offsetWidth is accurate
+            positionPopup(parts.popup, cm, linkInfo);
 
             // Insert immediately on selection — re-find the URL position
             // since the user may have edited the link while the popup was open.
