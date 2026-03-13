@@ -90,20 +90,369 @@
     font-weight: 600;
 }
 
-/* Django admin dark mode support */
+/* Light mode — markdown syntax highlighting */
+.markdown-editor-wrapper .EasyMDEContainer .cm-header {
+    color: #0550ae;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .cm-strong {
+    color: #953800;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .cm-em {
+    color: #8250df;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .cm-url {
+    color: #0969da;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .cm-link {
+    color: #116329;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .cm-comment {
+    color: #6e7781;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .cm-tag {
+    color: #6e7781;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .cm-quote {
+    color: #0550ae;
+    font-style: italic;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .cm-strikethrough {
+    color: #6e7781;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .cm-hr {
+    color: #d0d7de;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .cm-image-marker,
+.markdown-editor-wrapper .EasyMDEContainer .cm-formatting {
+    color: #6e7781;
+}
+
+/* Dark mode — activated by data-theme="dark" on <html>, or
+   data-theme="auto" when the OS prefers dark */
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border-color: #444;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror-cursor {
+    border-left-color: #d4d4d4;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror-selected,
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror-focused .CodeMirror-selected {
+    background: #264f78;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror-gutters {
+    background: #1e1e1e;
+    border-right-color: #333;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror-linenumber {
+    color: #858585;
+}
+
+/* Toolbar */
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar {
+    background: #2d2d2d;
+    border-color: #444;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar button {
+    color: #ccc;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar button:hover,
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar button.active {
+    background: #0d6efd;
+    color: #fff;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar i.separator {
+    border-left-color: #555;
+    border-right-color: #333;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar.disabled-for-preview button:not(.no-disable) {
+    color: #666;
+}
+
+/* Status bar */
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-statusbar {
+    color: #999;
+    border-top-color: #444;
+}
+
+/* Markdown syntax highlighting */
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .cm-header {
+    color: #569cd6;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .cm-strong {
+    color: #ce9178;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .cm-em {
+    color: #c586c0;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .cm-url {
+    color: #3794ff;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .cm-link {
+    color: #9cdcfe;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .cm-comment {
+    color: #6a9955;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .cm-tag {
+    color: #808080;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .cm-quote {
+    color: #6a9955;
+    font-style: italic;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .cm-strikethrough {
+    color: #808080;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .cm-hr {
+    color: #555;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .cm-image-marker,
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .cm-formatting {
+    color: #808080;
+}
+
+/* Preview pane */
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview,
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border-color: #444;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview a,
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side a {
+    color: #3794ff;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview pre,
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side pre {
+    background: #2d2d2d;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview code,
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side code {
+    background: #2d2d2d;
+    color: #ce9178;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview pre code,
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side pre code {
+    color: #d4d4d4;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview blockquote,
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side blockquote {
+    color: #999;
+    border-left-color: #555;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview th,
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview td,
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side th,
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side td {
+    border-color: #444;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview th,
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side th {
+    background: #2d2d2d;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview hr,
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side hr {
+    border-color: #444;
+}
+
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview img,
+html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side img {
+    opacity: 0.9;
+}
+
+/* Auto mode — follow OS preference */
 @media (prefers-color-scheme: dark) {
-    body.dark .markdown-editor-wrapper .EasyMDEContainer .CodeMirror {
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror {
         background: #1e1e1e;
+        color: #d4d4d4;
+        border-color: #444;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror-cursor {
+        border-left-color: #d4d4d4;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror-selected,
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror-focused .CodeMirror-selected {
+        background: #264f78;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror-gutters {
+        background: #1e1e1e;
+        border-right-color: #333;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .CodeMirror-linenumber {
+        color: #858585;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar {
+        background: #2d2d2d;
+        border-color: #444;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar button {
+        color: #ccc;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar button:hover,
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar button.active {
+        background: #0d6efd;
+        color: #fff;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar i.separator {
+        border-left-color: #555;
+        border-right-color: #333;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar.disabled-for-preview button:not(.no-disable) {
+        color: #666;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-statusbar {
+        color: #999;
+        border-top-color: #444;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .cm-header {
+        color: #569cd6;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .cm-strong {
+        color: #ce9178;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .cm-em {
+        color: #c586c0;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .cm-url {
+        color: #3794ff;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .cm-link {
+        color: #9cdcfe;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .cm-comment {
+        color: #6a9955;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .cm-tag {
+        color: #808080;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .cm-quote {
+        color: #6a9955;
+        font-style: italic;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .cm-strikethrough {
+        color: #808080;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .cm-hr {
+        color: #555;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .cm-image-marker,
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .cm-formatting {
+        color: #808080;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview,
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side {
+        background: #1e1e1e;
+        color: #d4d4d4;
+        border-color: #444;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview a,
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side a {
+        color: #3794ff;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview pre,
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side pre {
+        background: #2d2d2d;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview code,
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side code {
+        background: #2d2d2d;
+        color: #ce9178;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview pre code,
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side pre code {
         color: #d4d4d4;
     }
 
-    body.dark .markdown-editor-wrapper .EasyMDEContainer .editor-toolbar {
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview blockquote,
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side blockquote {
+        color: #999;
+        border-left-color: #555;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview th,
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview td,
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side th,
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side td {
+        border-color: #444;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview th,
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side th {
         background: #2d2d2d;
     }
 
-    body.dark .markdown-editor-wrapper .EasyMDEContainer .editor-preview pre,
-    body.dark .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side pre {
-        background: #2d2d2d;
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview hr,
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side hr {
+        border-color: #444;
+    }
+
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview img,
+    html[data-theme="auto"] .markdown-editor-wrapper .EasyMDEContainer .editor-preview-side img {
+        opacity: 0.9;
     }
 }
 
