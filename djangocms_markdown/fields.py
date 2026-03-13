@@ -2,6 +2,7 @@ from django import forms
 from django.db import models
 from django.utils.safestring import mark_safe
 
+from .references import resolve_references
 from .rendering import render_markdown
 from .widgets import MarkdownEditorWidget
 
@@ -26,7 +27,7 @@ class MarkdownRenderedValue(str):
     @property
     def rendered(self):
         """Return the markdown rendered as HTML, marked safe for templates."""
-        return mark_safe(render_markdown(str(self)))
+        return mark_safe(resolve_references(render_markdown(str(self))))
 
 
 class MarkdownFieldDescriptor:

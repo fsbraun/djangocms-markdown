@@ -16,6 +16,16 @@ integrated editor and have it rendered as HTML on your site.
   with a `.rendered` property that returns HTML
 - **EasyMDE editor** — a full-featured markdown editor with toolbar, preview,
   and side-by-side mode in the admin and CMS plugin forms
+- **Dynamic object references** — link to any Django object with
+  `[text](ref:app.model:pk)` syntax; URLs are resolved at render time so they
+  stay up to date. When an object is deleted, the link is replaced with plain
+  text.
+- **Inline reference picker** — when the cursor is inside a markdown link, a
+  select2 autocomplete popup appears above the link, allowing you to search and
+  select internal pages or objects. Requires
+  [djangocms-link](https://github.com/django-cms/djangocms-link) or a custom
+  autocomplete endpoint. If the link text is empty it is filled with the
+  selected object's name.
 - **Template filter** — `{{ value|render_markdown }}` for rendering markdown
   anywhere in templates
 - **Configurable rendering** — uses Python-Markdown with sensible defaults
