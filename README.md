@@ -1,2 +1,124 @@
 # djangocms-markdown
-Add and manage content in markdown and render to HTML
+
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/djangocms-markdown)](https://pypi.org/project/djangocms-markdown/)
+[![PyPI - Django Version](https://img.shields.io/pypi/djversions/djangocms-markdown)](https://pypi.org/project/djangocms-markdown/)
+[![PyPI - Django CMS Version](https://img.shields.io/pypi/frameworkversions/djangocms/djangocms-markdown)](https://pypi.org/project/djangocms-markdown/)
+[![Coverage Status](https://coveralls.io/repos/github/fsbraun/djangocms-markdown/badge.svg?branch=main)](https://coveralls.io/github/fsbraun/djangocms-markdown?branch=main)
+
+A markdown content plugin and model field for
+[django CMS](https://www.django-cms.org/). Write content in Markdown using an
+integrated editor and have it rendered as HTML on your site.
+
+## Features
+
+- **MDText CMS plugin** — add markdown content to any django CMS placeholder
+- **MarkdownField** — a model field for storing markdown in your own models,
+  with a `.rendered` property that returns HTML
+- **EasyMDE editor** — a full-featured markdown editor with toolbar, preview,
+  and side-by-side mode in the admin and CMS plugin forms
+- **Template filter** — `{{ value|render_markdown }}` for rendering markdown
+  anywhere in templates
+- **Configurable rendering** — uses Python-Markdown with sensible defaults
+  (tables, fenced code, syntax highlighting, task lists, TOC, and more)
+
+## Installation
+
+```bash
+pip install djangocms-markdown
+```
+
+Add `djangocms_markdown` to your `INSTALLED_APPS`:
+
+```python
+INSTALLED_APPS = [
+    ...,
+    "djangocms_markdown",
+]
+```
+
+Run migrations:
+
+```bash
+python manage.py migrate djangocms_markdown
+```
+
+## Usage
+
+### CMS plugin
+
+After installation the **Markdown** plugin is available in the plugin picker
+under the *Generic* module. Add it to any placeholder and write markdown in the
+editor. The content is rendered to HTML on save and displayed on the page.
+
+### MarkdownField (models)
+
+Use `MarkdownField` in your own models just like a `TextField`:
+
+```python
+from django.db import models
+from djangocms_markdown.fields import MarkdownField
+
+
+class Article(models.Model):
+    body = MarkdownField()
+```
+
+The field stores raw markdown. Access the rendered HTML through the `.rendered`
+property:
+
+```python
+article = Article.objects.get(pk=1)
+str(article.body)           # raw markdown
+article.body.rendered       # rendered HTML (marked safe)
+```
+
+In admin forms the field automatically uses the EasyMDE markdown editor.
+
+### Template filter
+
+```django
+{% load djangocms_markdown_tags %}
+
+{{ article.body|render_markdown }}
+```
+
+## Configuration
+
+All settings are optional.
+
+| Setting | Default | Description |
+|---|---|---|
+| `DJANGOCMS_MARKDOWN_EXTENSIONS` | `["markdown.extensions.extra", "markdown.extensions.codehilite", "markdown.extensions.toc", "markdown.extensions.sane_lists", "pymdownx.tasklist", "pymdownx.magiclink", "pymdownx.superfences"]` | List of Python-Markdown extensions to enable |
+| `DJANGOCMS_MARKDOWN_EXTENSION_CONFIGS` | See below | Dict of extension configs |
+| `DJANGOCMS_MARKDOWN_PLUGIN_NAME` | `"Markdown"` | Display name of the CMS plugin |
+| `DJANGOCMS_MARKDOWN_PLUGIN_MODULE_NAME` | `"Generic"` | Module name the plugin appears under |
+| `DJANGOCMS_MARKDOWN_EASYMDE_CDN_BASE` | `"https://cdn.jsdelivr.net/npm/easymde@2.20.0/dist"` | CDN base URL for EasyMDE (set to `""` to use local static files) |
+
+Default extension configs:
+
+```python
+DJANGOCMS_MARKDOWN_EXTENSION_CONFIGS = {
+    "markdown.extensions.codehilite": {
+        "css_class": "highlight",
+        "guess_lang": False,
+    },
+    "pymdownx.tasklist": {
+        "custom_checkbox": True,
+    },
+}
+```
+
+## Contributing
+
+```bash
+git clone https://github.com/fsbraun/djangocms-markdown.git
+cd djangocms-markdown
+python -m venv .venv
+source .venv/bin/activate
+pip install -e ".[test]"
+pytest
+```
+
+## License
+
+BSD-3-Clause
