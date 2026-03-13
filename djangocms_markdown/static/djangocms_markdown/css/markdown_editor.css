@@ -1,6 +1,7 @@
 /* Markdown editor styling for Django admin
    Uses Django's CSS custom properties so light/dark mode works automatically. */
 .markdown-editor-wrapper .EasyMDEContainer {
+    position: relative;
     margin-bottom: 0;
 }
 
@@ -294,11 +295,13 @@ html[data-theme="dark"] .markdown-editor-wrapper .EasyMDEContainer .cm-formattin
 .md-ref-popup {
     position: absolute;
     z-index: 100;
+    max-width: calc(100% - 8px);
     background: var(--body-bg);
     border: 1px solid var(--border-color);
     border-radius: 4px;
     padding: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
 }
 
 .md-ref-popup,
