@@ -10,6 +10,10 @@ A markdown content plugin and model field for
 [django CMS](https://www.django-cms.org/). Write content in Markdown using an
 integrated editor and have it rendered as HTML on your site.
 
+> Attention: Version 0.3.2 is from a different project by the great [Nicolas Noé](https://github.com/niconoe). 
+> This project is an entirely different rewrite with different goals. 
+
+
 ## Features
 
 - **MDText CMS plugin** — add markdown content to any django CMS placeholder
