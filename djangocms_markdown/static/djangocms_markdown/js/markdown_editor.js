@@ -115,7 +115,7 @@
         var popupWidth = popup.offsetWidth;
         var maxLeft = containerRect.width - popupWidth;
         if (left > maxLeft) {
-            left = Math.max(0, maxLeft);
+            left = Math.max(0, Math.min(left, maxLeft));
         }
 
         popup.style.left = left + "px";
