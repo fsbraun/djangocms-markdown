@@ -1,0 +1,121 @@
+/* Typography reset for the EasyMDE side-by-side preview pane.
+   Django admin styles aggressively reset margins, paddings, and list styles;
+   this stylesheet restores sensible defaults for rendered Markdown. */
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side {
+    /* Base spacing between block-level elements */
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview p,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side p {
+    font-size: 0.875rem;
+    margin: 0 0 1em 0;
+    padding: 0;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview h1,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side h1 {
+    font-size: 1.75rem;
+    margin: 1em 0 0.5em 0;
+    padding: 0;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview h2,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side h2 {
+    font-size: 1.375rem;
+    margin: 1em 0 0.5em 0;
+    padding: 0;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview h3,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side h3 {
+    font-size: 1.125rem;
+    margin: 1em 0 0.5em 0;
+    padding: 0;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview h4,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side h4 {
+    font-size: 1rem;
+    margin: 1em 0 0.5em 0;
+    padding: 0;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview h5,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side h5 {
+    font-size: 0.875rem;
+    margin: 1em 0 0.5em 0;
+    padding: 0;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview h6,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side h6 {
+    font-size: 0.8rem;
+    margin: 1em 0 0.5em 0;
+    padding: 0;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview ul,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side ul {
+    margin: 0 0 1em 0;
+    padding: 0 0 0 2em !important;
+    color: var(--body-fg);
+    li {
+        list-style-type: disc !important;
+    }
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview ul ul,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side ul ul {
+    margin: 0;
+    li {
+        list-style-type: circle !important;
+    }
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview ul ul ul,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side ul ul ul {
+    margin: 0;
+    li {
+        list-style-type: square !important;
+    }
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview ol,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side ol {
+    list-style-type: decimal !important;
+    margin: 0 0 1em 0;
+    padding: 0 0 0 2em !important;
+    color: var(--body-fg);
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview ol ol,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side ol ol {
+    list-style-type: lower-alpha !important;
+    margin: 0;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview li,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side li {
+    font-size: 0.875rem;
+    margin: 0.25em 0;
+    padding: 0;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview blockquote,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side blockquote {
+    margin: 0 0 1em 0;
+    padding: 0 0 0 16px;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview pre,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side pre {
+    margin: 0 0 1em 0;
+}
+
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview img,
+.markdown-editor-wrapper .EasyMDEContainer .editor-preview-side img {
+    max-width: 100%;
+    height: auto;
+}
