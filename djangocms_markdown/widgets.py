@@ -66,6 +66,7 @@ class MarkdownEditorWidget(forms.Textarea):
             js_files.append("admin/js/jquery.init.js")
 
         css_files.append("djangocms_markdown/css/markdown_editor.css")
+        css_files.append("djangocms_markdown/css/preview_typography.css")
         js_files.append("djangocms_markdown/js/markdown_editor.js")
 
         return forms.Media(
