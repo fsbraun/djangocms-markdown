@@ -85,7 +85,7 @@ class TestMDTextPlugin:
 
     def test_plugin_attributes(self):
         assert MDTextPlugin.model is MDText
-        assert MDTextPlugin.disable_child_plugins is True
+        assert MDTextPlugin.disable_child_plugins is False
 
     def test_render(self):
         placeholder = Placeholder.objects.create(slot="test")
