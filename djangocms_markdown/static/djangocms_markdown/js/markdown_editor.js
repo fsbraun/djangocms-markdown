@@ -165,7 +165,6 @@
                 "quote",
                 "unordered-list",
                 "ordered-list",
-                "checklist",
                 "|",
                 "link",
                 "image",
