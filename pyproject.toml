@@ -57,7 +57,6 @@ ini_options.pythonpath = [ "." ]
 ini_options.python_files = [ "tests/test_*.py" ]
 ini_options.python_classes = [ "Test*" ]
 ini_options.python_functions = [ "test_*" ]
-ini_options.addopts = "--strict-markers -v"
 
 [tool.coverage]
 run.omit = [ "*/migrations/*" ]
