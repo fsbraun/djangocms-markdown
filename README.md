@@ -10,8 +10,8 @@ A markdown content plugin and model field for
 [django CMS](https://www.django-cms.org/). Write content in Markdown using an
 integrated editor and have it rendered as HTML on your site.
 
-> Attention: Version 0.3.2 is from a different project by the great [Nicolas Noé](https://github.com/niconoe). 
-> This project is an entirely different rewrite with different goals. 
+> Attention: Version 0.3.2 is from a different project by the great [Nicolas Noé](https://github.com/niconoe).
+> This project is an entirely different rewrite with different goals.
 
 
 ## Features
@@ -137,7 +137,7 @@ All settings are optional.
 
 - **`DJANGOCMS_MARKDOWN_EASYMDE_CDN_BASE`** — CDN base URL for loading the
   EasyMDE editor. Set to `""` to serve from your own static files instead.
-  Default: `"https://cdn.jsdelivr.net/npm/easymde@2.20.0/dist"`
+  Default: `"https://cdn.jsdelivr.net/npm/easymde@2.21.0/dist"`
 
 Rendered HTML is sanitized with [nh3](https://github.com/messense/nh3) using
 the same settings as

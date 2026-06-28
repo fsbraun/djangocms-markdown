@@ -40,5 +40,5 @@ TABLE_CLASS = getattr(settings, "DJANGOCMS_MARKDOWN_TABLE_CLASS", "table")
 EASYMDE_CDN_BASE = getattr(
     settings,
     "DJANGOCMS_MARKDOWN_EASYMDE_CDN_BASE",
-    "https://cdn.jsdelivr.net/npm/easymde@2.20.0/dist",
+    "https://cdn.jsdelivr.net/npm/easymde@2.21.0/dist",
 )
