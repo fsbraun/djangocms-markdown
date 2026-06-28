@@ -90,7 +90,7 @@ class TestMDTextPlugin:
     def test_render(self):
         placeholder = Placeholder.objects.create(slot="test")
         instance = MDText(
-            body="**hello**",
+            body="**hello**\n\n",
             placeholder=placeholder,
             position=1,
             language="en",
@@ -101,4 +101,7 @@ class TestMDTextPlugin:
         plugin = MDTextPlugin()
         context = Context({"request": None})
         new_context = plugin.render(context, instance, placeholder)
+        # White space was stripped
+        assert instance.body == "**hello**"
+        # HTML renders
         assert "<strong>hello</strong>" in new_context["body"]
