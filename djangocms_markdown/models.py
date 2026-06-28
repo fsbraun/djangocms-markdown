@@ -21,6 +21,6 @@ class MDText(CMSPlugin):
         return self.body[:100] if self.body else ""
 
     def save(self, *args, **kwargs):
-        self.body = self.body.strip()
+        self.body = self.body.strip() if self.body else ""
         self.body_rendered = render_markdown(self.body)
         super().save(*args, **kwargs)
