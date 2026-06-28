@@ -53,11 +53,11 @@ packages.find.include = [ "djangocms_markdown*" ]
 dynamic.version = { attr = "djangocms_markdown.__version__" }
 
 [tool.pytest]
-ini_options.DJANGO_SETTINGS_MODULE = "tests.settings"
 ini_options.pythonpath = [ "." ]
 ini_options.python_files = [ "tests/test_*.py" ]
 ini_options.python_classes = [ "Test*" ]
 ini_options.python_functions = [ "test_*" ]
+ini_options.DJANGO_SETTINGS_MODULE = "tests.settings"
 
 [tool.coverage]
 run.omit = [ "*/migrations/*" ]
