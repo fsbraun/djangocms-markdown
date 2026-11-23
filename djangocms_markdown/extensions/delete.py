@@ -1,8 +1,9 @@
 """Markdown extension for ~~strikethrough~~ syntax, rendering as <del>."""
 
+from xml.etree.ElementTree import Element
+
 from markdown import Extension
 from markdown.inlinepatterns import InlineProcessor
-from xml.etree.ElementTree import Element
 
 DEL_RE = r"(?<!\~)\~\~(?!\~)(.+?)(?<!\~)\~\~(?!\~)"
 

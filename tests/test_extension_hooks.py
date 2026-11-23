@@ -291,7 +291,7 @@ class TestRegistry:
     def test_cms_config_never_imported_without_support(self):
         import sys
 
-        import djangocms_markdown.cms_plugins  # noqa: F401
+        import djangocms_markdown.cms_plugins
         import djangocms_markdown.fields  # noqa: F401
 
         assert "djangocms_markdown.cms_config" not in sys.modules
@@ -325,7 +325,7 @@ class TestRegistry:
     def test_invalid_editor_media_callable_result(self, no_contributions):
         registry.register("app_a", editor_media=lambda: ["x.js"])
         with pytest.raises(ImproperlyConfigured, match="^app_a: "):
-            MarkdownEditorWidget().media
+            str(MarkdownEditorWidget().media)
 
     def test_assets_callable_receives_rendered_html(self, no_contributions, db):
         seen = []

@@ -10,9 +10,9 @@ from .settings import EASYMDE_CDN_BASE
 @cache
 def get_url_endpoint():
     """Get the url for dynamic liks for cms plugins and HTMLFields"""
+    from cms.utils.urlutils import admin_reverse
     from django.contrib.admin import site
     from django.urls import NoReverseMatch
-    from cms.utils.urlutils import admin_reverse
 
     for model_admin in site._registry.values():
         if hasattr(model_admin, "global_link_url_name"):
