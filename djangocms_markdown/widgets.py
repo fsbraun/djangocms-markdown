@@ -3,6 +3,7 @@ from functools import cache
 from django import forms
 from django.utils.translation import gettext as _
 
+from .registry import get_editor_media
 from .settings import EASYMDE_CDN_BASE
 
 
@@ -69,7 +70,10 @@ class MarkdownEditorWidget(forms.Textarea):
         css_files.append("djangocms_markdown/css/preview_typography.css")
         js_files.append("djangocms_markdown/js/markdown_editor.js")
 
-        return forms.Media(
+        media = forms.Media(
             css={"all": css_files},
             js=js_files,
         )
+        # Media contributed by other apps (e.g. preview scripts) load after
+        # the widget's own files.
+        return get_editor_media(media)

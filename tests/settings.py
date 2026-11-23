@@ -15,8 +15,11 @@ INSTALLED_APPS = [
     "cms",
     "menus",
     "treebeard",
+    "sekizai",
     "djangocms_markdown",
+    # Both contribute to djangocms_markdown through their cms_config.py
     "tests",
+    "tests.other_app",
 ]
 
 SITE_ID = 1
@@ -40,6 +43,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "sekizai.context_processors.sekizai",
             ],
         },
     },
