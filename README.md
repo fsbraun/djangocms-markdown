@@ -86,8 +86,8 @@ property:
 
 ```python
 article = Article.objects.get(pk=1)
-str(article.body)           # raw markdown
-article.body.rendered       # rendered HTML (marked safe)
+str(article.body)  # raw markdown
+article.body.rendered  # rendered HTML (marked safe)
 ```
 
 In admin forms the field automatically uses the EasyMDE markdown editor.
@@ -182,7 +182,9 @@ class MyAppConfig(CMSAppConfig):
     djangocms_markdown_extension_configs = {"my_app.markdown": {"css_class": "spoiler"}}
     djangocms_markdown_assets = {
         "css": ['<link rel="stylesheet" href="/static/my_app/spoiler.css">'],
-        "js": ['<script defer src="/static/my_app/spoiler.js" data-animate="true"></script>'],
+        "js": [
+            '<script defer src="/static/my_app/spoiler.js" data-animate="true"></script>'
+        ],
     }
     djangocms_markdown_editor_media = forms.Media(js=["my_app/spoiler_preview.js"])
 ```
