@@ -21,6 +21,19 @@ jobs:
             django-version: "6.0"
           - python-version: "3.11"
             django-version: "6.0"
+        # Each Django version is tested with one django CMS release line, so
+        # that all supported django CMS versions are covered. Both are pinned
+        # in a single pip call: installing django-cms unpinned would silently
+        # replace the Django version under test.
+        include:
+          - django-version: "4.2"
+            cms-version: "3.11"
+          - django-version: "5.1"
+            cms-version: "4.1"
+          - django-version: "5.2"
+            cms-version: "5.0"
+          - django-version: "6.0"
+            cms-version: "5.1"
 
     steps:
       - uses: actions/checkout@v4
@@ -33,8 +46,8 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install "django~=${{ matrix.django-version }}.0"
-          pip install -e ".[test]"
+          pip install -e ".[test]" "django~=${{ matrix.django-version }}.0" "django-cms~=${{ matrix.cms-version }}.0"
+          pip list | grep -i -E "^django(-cms)? "
 
       - name: Run tests with coverage
         run: |
@@ -44,7 +57,7 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           files: ./coverage.xml
-          flags: py${{ matrix.python-version }}-dj${{ matrix.django-version }}
+          flags: py${{ matrix.python-version }}-dj${{ matrix.django-version }}-cms${{ matrix.cms-version }}
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: false
 

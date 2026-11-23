@@ -130,6 +130,73 @@
         }
     }
 
+    // ── Preview processors ────────────────────────────────────
+    // Other scripts hook into the preview through a global array, which
+    // works regardless of script load order:
+    //
+    //     window.djangocmsMarkdownPreview = window.djangocmsMarkdownPreview || [];
+    //     window.djangocmsMarkdownPreview.push({ before: fn, after: fn });
+    //
+    // before(text) -> text   runs on the markdown source before rendering
+    // after(element)         may mutate a detached element holding the
+    //                        rendered HTML; its innerHTML is shown
+    function getPreviewProcessors() {
+        var processors = window.djangocmsMarkdownPreview;
+        if (!Array.isArray(processors)) {
+            return [];
+        }
+        return processors.filter(function (processor) {
+            return processor && (typeof processor.before === "function" || typeof processor.after === "function");
+        });
+    }
+
+    function logProcessorError(hook, error) {
+        if (window.console && console.error) {
+            console.error("djangocms-markdown: preview processor \"" + hook + "\" failed", error);
+        }
+    }
+
+    function renderPreview(easyMDE, plainText) {
+        // Read the registry on every render: processors may register late.
+        var processors = getPreviewProcessors();
+        var text = plainText;
+
+        processors.forEach(function (processor) {
+            if (typeof processor.before !== "function") {
+                return;
+            }
+            try {
+                var result = processor.before(text);
+                if (typeof result === "string") {
+                    text = result;
+                }
+            } catch (error) {
+                logProcessorError("before", error);
+            }
+        });
+
+        var html = easyMDE.markdown(text);
+
+        var afterProcessors = processors.filter(function (processor) {
+            return typeof processor.after === "function";
+        });
+        if (!afterProcessors.length) {
+            // Nothing to post-process: EasyMDE's output, untouched
+            return html;
+        }
+
+        var element = document.createElement("div");
+        element.innerHTML = html;
+        afterProcessors.forEach(function (processor) {
+            try {
+                processor.after(element);
+            } catch (error) {
+                logProcessorError("after", error);
+            }
+        });
+        return element.innerHTML;
+    }
+
     function initMarkdownEditor(textarea) {
         if (initialized.has(textarea)) {
             return;
@@ -185,6 +252,11 @@
             },
             tabSize: 4,
             forceSync: true,
+            // Used for both "preview" and "side-by-side"
+            previewRender: function (plainText) {
+                // "this" is EasyMDE's options object
+                return renderPreview(this.parent, plainText);
+            },
         });
 
         var cm = easyMDE.codemirror;

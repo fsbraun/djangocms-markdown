@@ -32,6 +32,7 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: 3.15",
   "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
 ]
 dynamic = [ "version" ]
@@ -52,6 +53,10 @@ urls.Homepage = "https://github.com/fsbraun/djangocms-markdown"
 packages.find.include = [ "djangocms_markdown*" ]
 dynamic.version = { attr = "djangocms_markdown.__version__" }
 
+[tool.ruff]
+# Mutable class attributes are the norm in Django and django CMS declarations
+lint.ignore = [ "RUF012" ]
+
 [tool.pytest]
 ini_options.pythonpath = [ "." ]
 ini_options.python_files = [ "tests/test_*.py" ]
@@ -60,7 +65,7 @@ ini_options.python_functions = [ "test_*" ]
 ini_options.DJANGO_SETTINGS_MODULE = "tests.settings"
 
 [tool.coverage]
-run.omit = [ "*/migrations/*" ]
 run.source = [ "djangocms_markdown" ]
+run.omit = [ "*/migrations/*" ]
 report.fail_under = 80
 report.show_missing = true
