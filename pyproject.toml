@@ -52,6 +52,10 @@ urls.Homepage = "https://github.com/fsbraun/djangocms-markdown"
 packages.find.include = [ "djangocms_markdown*" ]
 dynamic.version = { attr = "djangocms_markdown.__version__" }
 
+[tool.ruff]
+# Mutable class attributes are the norm in Django and django CMS declarations
+lint.ignore = [ "RUF012" ]
+
 [tool.pytest]
 ini_options.pythonpath = [ "." ]
 ini_options.python_files = [ "tests/test_*.py" ]
