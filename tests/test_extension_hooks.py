@@ -17,6 +17,8 @@ from djangocms_markdown.models import MDText
 from djangocms_markdown.settings import MARKDOWN_EXTENSION_CONFIGS, MARKDOWN_EXTENSIONS
 from djangocms_markdown.widgets import MarkdownEditorWidget
 
+from .utils import media_paths
+
 # django CMS 3.11 has no cms_config support: the test apps' cms_config.py files
 # are never loaded there (and cannot be imported).
 HAS_CMS_CONFIG = hasattr(cms.app_base, "CMSAppConfig")
@@ -204,9 +206,7 @@ class TestCMSConfigRegistration:
         assert rendered == "<p><mark>marked</mark></p>"
 
     def test_widget_media_merged_after_own_files(self):
-        media = MarkdownEditorWidget().media
-        js = media._js
-        css = media._css["all"]
+        js, css = media_paths(MarkdownEditorWidget().media)
         own_js = js.index("djangocms_markdown/js/markdown_editor.js")
         own_css = css.index("djangocms_markdown/css/preview_typography.css")
         # Contributions follow the widget's files, in INSTALLED_APPS order
@@ -277,7 +277,7 @@ class TestDeclarationValidation:
             djangocms_markdown_editor_media=editor_media,
         )
         assert rendering.get_assets("x") == {"js": ["<!-- x -->"]}
-        assert registry.get_editor_media()._js == ["x.js"]
+        assert media_paths(registry.get_editor_media()) == (["x.js"], [])
 
     def test_staticmethod_declarations(self, no_contributions):
         configure(djangocms_markdown_assets=staticmethod(lambda html: None))
@@ -384,10 +384,10 @@ class TestWithoutContributions:
         assert not context[get_varname()]
 
     def test_widget_media_unchanged(self, no_contributions):
-        media = MarkdownEditorWidget().media
-        assert media._js[-1] == "djangocms_markdown/js/markdown_editor.js"
-        assert media._css["all"][-2:] == [
+        js, css = media_paths(MarkdownEditorWidget().media)
+        assert js[-1] == "djangocms_markdown/js/markdown_editor.js"
+        assert css[-2:] == [
             "djangocms_markdown/css/markdown_editor.css",
             "djangocms_markdown/css/preview_typography.css",
         ]
-        assert "preview" not in " ".join(media._js)
+        assert "preview" not in " ".join(js)
