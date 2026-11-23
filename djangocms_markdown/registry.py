@@ -10,6 +10,7 @@ widget.
 
 from dataclasses import dataclass, field
 
+import markdown
 from django import forms
 from django.core.exceptions import ImproperlyConfigured
 
@@ -104,6 +105,20 @@ def register(
                 "a config dict keyed by the extension name",
                 config if isinstance(name, str) else name,
             )
+
+    # Fail at startup, not on the first render, if an extension cannot be
+    # loaded (misspelled name, missing package, unknown config option).
+    for extension in extensions:
+        try:
+            markdown.Markdown(
+                extensions=[extension],
+                extension_configs={extension: extension_configs.get(extension, {})},
+            )
+        except Exception as error:
+            raise ImproperlyConfigured(
+                f"{app}: djangocms_markdown_extensions: cannot load extension "
+                f"{extension!r} ({type(error).__name__}: {error})."
+            ) from error
 
     if assets is not None and not callable(assets):
         validate_assets(app, assets)

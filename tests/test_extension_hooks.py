@@ -237,6 +237,12 @@ class TestDeclarationValidation:
         [
             {"djangocms_markdown_extensions": "my_app.markdown"},
             {"djangocms_markdown_extensions": [1]},
+            {"djangocms_markdown_extensions": ["no_such_module.markdown"]},
+            {"djangocms_markdown_extensions": ["tests.markdown_ext:Missing"]},
+            {
+                "djangocms_markdown_extensions": [INSERT],
+                "djangocms_markdown_extension_configs": {INSERT: {"unknown": 1}},
+            },
             {"djangocms_markdown_extensions": {"my_app.markdown": {}}},
             {"djangocms_markdown_extension_configs": ["my_app.markdown"]},
             {"djangocms_markdown_extension_configs": {"my_app.markdown": "x"}},
@@ -298,12 +304,13 @@ class TestRegistry:
         assert registry.get_contributions() == []
 
     def test_register_replaces_earlier_contribution(self, no_contributions):
-        registry.register("app_a", extensions=["a"])
-        registry.register("app_b", extensions=["b"])
-        registry.register("app_a", extensions=["c"])
+        abbr, nl2br = "markdown.extensions.abbr", "markdown.extensions.nl2br"
+        registry.register("app_a", extensions=[abbr])
+        registry.register("app_b", extensions=[ADMONITION])
+        registry.register("app_a", extensions=[nl2br])
         assert [c.app for c in registry.get_contributions()] == ["app_a", "app_b"]
-        with patch.object(rendering, "MARKDOWN_EXTENSIONS", ["b"]):
-            assert rendering.get_extensions() == ["b", "c"]
+        with patch.object(rendering, "MARKDOWN_EXTENSIONS", [ADMONITION]):
+            assert rendering.get_extensions() == [ADMONITION, nl2br]
 
     def test_extension_instances_rejected(self, no_contributions):
         # A shared instance would leak state between renders (and requests)

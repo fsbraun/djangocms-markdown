@@ -197,6 +197,7 @@ class MyAppConfig(CMSAppConfig):
 | `djangocms_markdown_editor_media` | Editor media, see [Editor media and preview](#editor-media-and-preview). |
 
 Invalid declarations raise `ImproperlyConfigured` at startup, naming the app.
+This includes extensions that cannot be loaded, such as a misspelled name.
 
 - **Order:** the effective extension list is `DJANGOCMS_MARKDOWN_EXTENSIONS`
   first, followed by contributed extensions in `INSTALLED_APPS` order, without
