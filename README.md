@@ -191,7 +191,7 @@ class MyAppConfig(CMSAppConfig):
 
 | Attribute | Value |
 |---|---|
-| `djangocms_markdown_extensions` | List of Python-Markdown extensions (names or `markdown.Extension` instances). |
+| `djangocms_markdown_extensions` | List of Python-Markdown extension names, e.g. `"my_app.markdown"` (a module with `makeExtension()`) or `"my_app.markdown:SpoilerExtension"`. |
 | `djangocms_markdown_extension_configs` | Dict mapping extension names to their config dicts. |
 | `djangocms_markdown_assets` | Page assets, see [Page assets](#page-assets). |
 | `djangocms_markdown_editor_media` | Editor media, see [Editor media and preview](#editor-media-and-preview). |
@@ -205,6 +205,11 @@ Invalid declarations raise `ImproperlyConfigured` at startup, naming the app.
   the project's `DJANGOCMS_MARKDOWN_EXTENSION_CONFIGS` (or its default) win
   over contributed ones; if several apps configure the same option, the app
   listed first in `INSTALLED_APPS` wins.
+- **Names only:** extensions are contributed by name, not as
+  `markdown.Extension` instances. Python-Markdown then creates fresh
+  instances for every render, so extension state (collected footnotes, for
+  example) cannot carry over from one render or request to another. Use
+  `djangocms_markdown_extension_configs` to configure them.
 - **Opting out:** an app decides for itself whether to contribute, e.g. by
   setting `djangocms_markdown_enabled = getattr(settings, "MY_APP_MARKDOWN", True)`.
 - **Callables:** where a callable is accepted it is called as a plain function

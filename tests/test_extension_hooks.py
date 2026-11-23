@@ -305,11 +305,23 @@ class TestRegistry:
         with patch.object(rendering, "MARKDOWN_EXTENSIONS", ["b"]):
             assert rendering.get_extensions() == ["b", "c"]
 
-    def test_extension_instances_accepted(self, no_contributions):
+    def test_extension_instances_rejected(self, no_contributions):
+        # A shared instance would leak state between renders (and requests)
         from tests.markdown_ext import MarkExtension
 
-        registry.register("app_a", extensions=[MarkExtension()])
-        assert "<mark>x</mark>" in rendering.render_markdown("==x==")
+        with pytest.raises(ImproperlyConfigured, match="^app_a: .*not extension"):
+            registry.register("app_a", extensions=[MarkExtension()])
+        assert registry.get_contributions() == []
+
+    def test_contributed_extension_state_not_shared_between_renders(
+        self, no_contributions
+    ):
+        registry.register("app_a", extensions=["markdown.extensions.footnotes"])
+        first = rendering.render_markdown("Private[^1]\n\n[^1]: secret note")
+        second = rendering.render_markdown("Public text")
+        assert "secret note" in first
+        assert "secret note" not in second
+        assert "footnote" not in second
 
     def test_callables_not_called_on_registration(self, no_contributions):
         def fail(*args):

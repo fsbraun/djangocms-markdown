@@ -12,7 +12,6 @@ from dataclasses import dataclass, field
 
 from django import forms
 from django.core.exceptions import ImproperlyConfigured
-from markdown.extensions import Extension
 
 
 @dataclass
@@ -27,6 +26,16 @@ class Contribution:
 #: Contributions in registration order (django CMS configures apps in
 #: ``INSTALLED_APPS`` order).
 _contributions = []
+
+
+# Extensions are contributed by name only. Python-Markdown then creates fresh
+# extension instances for every render; a shared Extension instance would carry
+# its state (e.g. collected footnotes) from one render into another, also
+# across concurrent requests.
+_EXTENSIONS_EXPECTED = (
+    'a list of extension names (e.g. "my_app.markdown" or '
+    '"my_app.markdown:MyExtension"), not extension instances'
+)
 
 
 def _fail(app, attr, expected, value):
@@ -66,15 +75,15 @@ def register(
         _fail(
             app,
             "djangocms_markdown_extensions",
-            "a list of extension names or markdown.Extension instances",
+            _EXTENSIONS_EXPECTED,
             extensions,
         )
     for extension in extensions:
-        if not isinstance(extension, (str, Extension)):
+        if not isinstance(extension, str):
             _fail(
                 app,
                 "djangocms_markdown_extensions",
-                "a list of extension names or markdown.Extension instances",
+                _EXTENSIONS_EXPECTED,
                 extension,
             )
 
